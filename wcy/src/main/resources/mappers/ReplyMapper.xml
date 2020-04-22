@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.wecodeyou.reply.repository.IReplyMapper">
+
+   <resultMap id="ReplyMap" type="com.it.wecodeyou.reply.model.ReplyVO">
+      <id property="replyNo" column="reply_no" />
+      <result property="replyWriter" column="reply_writer" />
+      <result property="replyContent" column="reply_content" />
+      <result property="replyTitle" column="reply_title" />
+      <result property="replyCreatedAt" column="reply_created_at" />
+      <result property="replyModifiedAt" column="reply_modified_at" />
+      <result property="replyIsRemoved" column="reply_is_removed" />
+      <result property="replyOrder" column="reply_order" />
+      <result property="replyParent" column="reply_parent" />
+      <result property="replyDepth" column="reply_order" />
+      <result property="replyLikes" column="reply_likes" />
+      <result property="replyArticleNo" column="reply_article_no" />
+   </resultMap>
+   
+   <insert id="insertReply">
+   		INSERT
+   		INTO article
+   		(reply_writer, reply_content, reply_title, reply_board_no )
+   		VALUES
+   		(#{replyWriter}, #{replyContent}, #{replyTitle}, #{replyArticleNo})
+   </insert>
+   
+   <update id="updateReply">
+   		UPDATE
+   		article
+   		SET reply_content = #{replyContent}, reply_title = #{replyTitle}
+   </update>
+   
+   <delete id="deleteReply">
+      DELETE FROM Reply WHERE reply_no=#{replyNo}
+   </delete>
+
+   <select id="getAllInfoByArticle" resultMap="ReplyMap">
+   		SELECT *
+   		FROM article
+   		WHERE reply_article_no = #{replyArticleNo}
+   		ORDER BY reply_depth, reply_order
+   </select>
+   
+</mapper>
