@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.it.wecodeyou.member.repository.IMemberMapper;
+import com.it.wecodeyou.point_purchase.model.Point_PurchaseVO;
 import com.it.wecodeyou.point_purchase.repository.IPoint_PurchaseMapper;
 
 @Controller
@@ -37,7 +38,7 @@ public class Point_PurchaseController {
 		
 		
 		
-		request.getSession().setAttribute("login", dao.getOneInfo(1));
+		request.getSession().setAttribute("login", mdao.getOneInfo(1));
 		
 		
 		
@@ -59,9 +60,17 @@ public class Point_PurchaseController {
 	
 
 	@PostMapping("/paying")
-	public String paying(Model model) throws SQLException {
+	public String paying(Model model, HttpServletRequest req) throws SQLException {
 		
-
+		String id = req.getParameter("imp_uid");
+		String gname = req.getParameter("gname");
+		String bname = req.getParameter("bname");
+		Integer amount = Integer.parseInt(req.getParameter("gname"));
+		
+		Point_PurchaseVO pvo = 
+		
+		pdao.insertPointPurchase(pvo);
+		
 		
 		
 		

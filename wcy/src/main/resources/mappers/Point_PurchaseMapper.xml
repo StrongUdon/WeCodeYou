@@ -26,7 +26,7 @@
 </select>
 
 
-<!-- 포인트 구매완료 시 insert -->	
+<!--  포인트 구매완료 시 insert -->	
 <insert id="insertPointPurchase">
 	INSERT 
 	INTO point_purchase
