@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.wecodeyou.interest_list.repository.IInterest_ListMapper">
+<!-- IInterest_ListMapper의 구현 클래스임을 경로로 정의 -->
+
+	<resultMap id="Interest_ListMap" type="com.it.wecodeyou.interest_list.model.Interest_ListVO">
+		<id property="interestListId" column="interest_list_id" />
+		<result property="interestListType" column="interest_list_type" />
+		<result property="interestListName" column="interest_list_name" />
+	</resultMap>
+
+	<!-- 전체 타입 목록 출력  -->
+	<select id="getOneInterestType" resultMap="Interest_ListMap">
+		SELECT DISTINCT interest_list_type FROM interest_list
+	</select>
+	
+	<!-- 전체 interst_list 정보 출력  -->
+	<select id="getAllInterestList" resultMap="Interest_ListMap">
+		SELECT * FROM interest_list
+	</select>
+	
+</mapper>
