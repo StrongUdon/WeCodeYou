@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.wecodeyou.article.repository.IArticleMapper">
+
+   <resultMap id="ArticleMap" type="com.it.wecodeyou.article.model.ArticleVO">
+      <id property="articleNo" column="article_no" />
+      <result property="articleTitle" column="article_title" />
+      <result property="articleContent" column="article_content" />
+      <result property="articleBoardTitle" column="article_board_title" />
+      <result property="articleClicks" column="article_clicks" />
+      <result property="articleLikes" column="article_likes" />
+      <result property="articleEditorNo" column="article_editor_no" />
+      <result property="articleCreatedAt" column="article_article_at" />
+      <result property="articleModifiedAt" column="article_modified_at" />
+   </resultMap>
+   
+   <insert id="insertArticle">
+   		INSERT
+   		INTO board
+   		(article_title, article_content, article_board_title, article_editor_no)
+   		VALUES
+   		(#{articleTitle}, #{articleContent}, #{articleBoardTitle}, #{articleEditorNo})
+   </insert>
+   
+   <update id="updateArticle">
+   		UPDATE
+   		board
+   		SET article_title = #{articleTitle}, article_content = #{articleContent}
+   </update>
+   
+   <delete id="deleteArticle">
+      DELETE FROM article WHERE article_no=#{articleNo}
+   </delete>
+   
+   <select id="getAllByBoard" resultMap="ArticleMap">
+   		SELECT * 
+   		FROM article
+   		WHERE article_board_title = #{articleBoardTitle}
+   </select>
+
+   <select id="getAllByWriter" resultMap="ArticleMap">
+   		SELECT * 
+   		FROM article
+   		WHERE article_editor_no = #{articleEditorNo}
+   </select>
+  
+   <select id="getAllByKeyword" resultMap="ArticleMap">
+   		SELECT * 
+   		FROM article
+   		WHERE article_title LIKE CONCAT(‘%’, #{articleEditorNo}, ‘%’)
+   </select>
+<!--    LIKE절 DBMS별
+   # MySql
+SELECT * FROM TABLE_NAME
+WHERE COLUMN_NAME LIKE CONCAT(‘%’, #{searchKeyword}, ‘%’)
+
+# ORACLE
+SELECT * FROM TABLE_NAME
+WHERE COLUMN_NAME LIKE '%'||#searchKeyword#||'%' 
+
+# Ms-Sql
+SELECT * FROM TABLE_NAME
+WHERE COLUMN_NAME LIKE '%' + #searchKeyword# + '%' -->
+
+</mapper>
