@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.wecodeyou.point_purchase.repository.IPoint_PurchaseMapper">
+
+ 	<resultMap id="Point_PurchaseMap" type="com.it.wecodeyou.point_purchase.model.Point_PurchaseVO">
+		<id property="pointPurchaseNo" column="point_purchase_no" />
+		<result property="pointPurchaseUserNo" column="point_purchase_user_no" />
+		<result property="pointPurchaseId" column="point_purchase_id" />
+		<result property="pointPurchasePurchasedAt" column="point_purchase_purchased_at" />
+		<result property="pointPurchaseAmount" column="point_purchase_amount" />
+	</resultMap>
+	
+	
+<!-- 전체 포인트구매목록 출력 -->	
+<select id = "getAllPurchaseList" resultType = "Point_PurchaseMap">
+	SELECT * FROM point_purchase
+	
+</select>
+
+<!-- userno로 한명의 구매목록 출력 -->
+<select id = "getOnePurchaseList" resultType = "Point_PurchaseMap">
+	SELECT * FROM point_purchase
+	WHERE 
+	point_purchase_user_no = #{user_no}
+	
+</select>
+
+
+<!-- 포인트 구매완료 시 insert -->	
+<insert id="insertPointPurchase">
+	INSERT 
+	INTO point_purchase
+	(point_purchase_no, point_purchase_user_no, point_purchase_id, point_purchase_purchased_at, point_purchase_amount)
+	VALUES
+	(#{pointPurchaseNo},#{pointPurchaseUserNo},#{pointPurchaseId},#{pointPurchasePurchasedAt},#{pointPurchaseAmount})
+
+</insert>
+
+
+
+	
+</mapper>
+
+
+
+
+
+

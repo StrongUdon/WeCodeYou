@@ -14,15 +14,15 @@
 
 <form action="#" method="post">
    
-   이메일 <input type="email" id="userEmail" name="userEmail" /><span id="emailChk"></span><br>
+   이메일 <input type="email" id="userEmail" name="userEmail" value ="${kakaoemail}"/><span id="emailChk"></span><br>
    
    비밀번호 <input type="password" id="userPw" name="userPw" /><span id="pwChk1"></span><br>
    <span id="pwChk"> </span><br>
    비밀번호 확인 <input type="password" id="userPwChk" name="userPwChk" /><span id="pwChk2"></span><br>
    <span id="pwChk2"> </span><br>
-   이름 <input type="text" id="userName" name="userName" /><span id="nameChk"></span><br>
+   이름 <input type="text" id="userName" name="userName" value = "${kakaonickname}"/><span id="nameChk"></span><br>
    전화번호 <input type="text" id="userTel" name="userTel" placeholder="-을 제외한 11자리 번호 입력"/><span id="telChk"></span><br>
-   생일 <input type="date" id="userBirthday" name="userBirthday" /> <br>
+   생일 <input type="date" id="userBirthday" name="userBirthday" value = "${kakaobirth}"/> <br>
    주소
    <input type="text" name="userZipcode" id="userZipCode" placeholder="우편번호 검색하기" readonly="readonly" onclick="openDaumPostcode('userZipCode','userFirstAddr','userSecondAddr'); return false;" />
    <input type="text" name="userAddress" id="userFirstAddr" readonly="readonly">

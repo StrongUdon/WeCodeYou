@@ -20,7 +20,7 @@ public class ScheduleController {
 	@GetMapping("/calendar")
 	public String schedule(Model model) throws SQLException {
 		
-		model.addAttribute("el",dao.getEvent());
+//		model.addAttribute("el",dao.getEvent());
 		
 		
 		

@@ -276,6 +276,44 @@ public class MemberController {
 		
 	}
 	
+	@PostMapping("/kakao")
+	public ModelAndView kakao(HttpServletRequest req) {
+		
+		String email = req.getParameter("email");
+		//email 비교해서 존재하면 바로 로그인 시키면 될듯
+		
+		String nickname = req.getParameter("nickname");
+		String image = req.getParameter("image");
+		if ( !req.getParameter("birth").equals("undefined"))
+			req.setAttribute("kakaobirth", req.getParameter("birth"));
+		
+		System.out.println(email + "\n" + image + "\n" + nickname);
+
+		
+		req.setAttribute("iskakao", 1);
+		req.setAttribute("kakaonickname", nickname);
+		req.setAttribute("kakaoemail",email);
+		req.setAttribute("kakaoimage",image);
+		
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("member/join-form");
+		
+		
+		
+		return mv;
+	}
+	
+	@GetMapping("/kakao")
+	public ModelAndView kakao() {
+		
+		ModelAndView mv=new ModelAndView();
+		
+		mv.setViewName("member/kakao");
+		
+		return mv;
+	}
+	
+	
 	
 	
 }

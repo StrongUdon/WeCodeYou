@@ -10,11 +10,17 @@
 	<!-- 그래서 보통 이름을 바꿔서 쓰는 경우가 일반적임 (예: mvc-config.xml)-->
 	
 	<!-- 1. 히카리 커넥션풀 빈 등록 -->
-   <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+<!--    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
       <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
       <property name="jdbcUrl" value="jdbc:mysql://database-1.crib18kv3dqa.ap-northeast-2.rds.amazonaws.com:3306/final?serverTimezone=Asia/Seoul" />
       <property name="username" value="admin" />
       <property name="password" value="kaja123!" />
+   </bean> -->
+   <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+      <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/final?serverTimezone=Asia/Seoul" />
+      <property name="username" value="root" />
+      <property name="password" value="1234" />
    </bean>
 	
 	<!-- 2. 히카리 데이터소스 빈 등록 -->
@@ -28,7 +34,7 @@
 		<property name="dataSource" ref="ds" />
 		<!-- 이게 dao의 역할이기 때문에 웹페이지를 구축하다 보면 dao가 많아지듯이 mapper도 여러개 생성됨 -->
 		<!-- mappers 폴더 안에 모든 폴더 안에 Mapper.xml로 끝나는 모든 것을 설정파일로 읽어라 -->
-		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.*" />
 	</bean>
 	
 	<!-- 4. 마이바티스 xml파일을 빈으로 등록하기 위한 스캔 설정 -->
@@ -39,6 +45,7 @@
 	<mybatis-spring:scan base-package="com.it.wecodeyou.interest.repository"/>
 	<mybatis-spring:scan base-package="com.it.wecodeyou.interest_list.repository"/>
 	<mybatis-spring:scan base-package="com.it.wecodeyou.schedule.repository"/>
+	<mybatis-spring:scan base-package="com.it.wecodeyou.point_purchase.repository"/>
 
 	<!-- 이메일 관련 -->
 	<!-- 메일 보내기(SEND) -->
