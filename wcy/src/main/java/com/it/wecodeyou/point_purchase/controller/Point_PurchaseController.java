@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.it.wecodeyou.member.repository.IMemberMapper;
+import com.it.wecodeyou.point_purchase.repository.IPoint_PurchaseMapper;
 
 @Controller
 @RequestMapping("/pay")
@@ -19,7 +20,9 @@ public class Point_PurchaseController {
 
 	
 	@Autowired
-	IMemberMapper dao;
+	IMemberMapper mdao;
+	@Autowired
+	IPoint_PurchaseMapper pdao;
 	
 	@GetMapping("/pay")
 	public String pay(Model model) throws SQLException {
@@ -69,10 +72,19 @@ public class Point_PurchaseController {
 	public String paycomplete(Model model) throws SQLException {
 		
 
-		//�������� ���
 		
 		
 		return "pay/paycomplete";
 	}
+	
+	@GetMapping("/fail")
+	public String payfail(Model model) throws SQLException {
+		
+		
+		System.out.println("결제 실패");
+		
+		return "point_purchase/point_purchase-main";
+	}	
+	
 	
 }
