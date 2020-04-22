@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.it.wecodeyou.point_purchase.repository.IPoint_PurchaseMapper">
+ <mapper namespace="com.it.wecodeyou.point_purchase.repository.IPoint_PurchaseMapper">
 
  	<resultMap id="Point_PurchaseMap" type="com.it.wecodeyou.point_purchase.model.Point_PurchaseVO">
 		<id property="pointPurchaseNo" column="point_purchase_no" />
@@ -11,14 +11,14 @@
 	</resultMap>
 	
 	
-<!-- 전체 포인트구매목록 출력 -->	
-<select id = "getAllPurchaseList" resultType = "Point_PurchaseMap">
+<!--  전체 포인트구매목록 출력 -->	
+<select id = "getAllPurchaseList" resultMap = "Point_PurchaseMap">
 	SELECT * FROM point_purchase
 	
 </select>
 
 <!-- userno로 한명의 구매목록 출력 -->
-<select id = "getOnePurchaseList" resultType = "Point_PurchaseMap">
+<select id = "getOnePurchaseList" resultMap = "Point_PurchaseMap">
 	SELECT * FROM point_purchase
 	WHERE 
 	point_purchase_user_no = #{user_no}
