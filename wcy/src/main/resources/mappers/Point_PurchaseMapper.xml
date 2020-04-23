@@ -21,20 +21,49 @@
 <select id = "getOnePurchaseList" resultMap = "Point_PurchaseMap">
 	SELECT * FROM point_purchase
 	WHERE 
-	point_purchase_user_no = #{user_no}
+	point_purchase_user_no = #{userNo}
 	
 </select>
 
+<!-- 가장 최근 결제목록 조회-->
+<select id="getOneRecent" resultMap = "Point_PurchaseMap">
+
+	SELECT * FROM 
+	(SELECT * FROM point_purchase ORDER BY point_purchase_purchased_at DESC LIMIT 1) rec 
+	WHERE 
+	point_purchase_user_no = #{userNO}; 
+
+</select>
 
 <!--  포인트 구매완료 시 insert -->	
 <insert id="insertPointPurchase">
+	INSERT 
+	INTO point_purchase
+	(point_purchase_user_no, point_purchase_id, point_purchase_amount)
+	VALUES
+	(#{pointPurchaseUserNo},#{pointPurchaseId},#{pointPurchaseAmount})
+
+</insert>
+
+<!-- 구매 완료 시 포인트 추가 -->
+<update id="addPoint">
+
+	UPDATE user
+	SET user_point = user_point + #{pointPurchaseAmount}
+	where user_no = #{pointPurchaseUserNo};
+
+</update>
+
+
+
+<!-- <insert id="insertPointPurchase">
 	INSERT 
 	INTO point_purchase
 	(point_purchase_no, point_purchase_user_no, point_purchase_id, point_purchase_purchased_at, point_purchase_amount)
 	VALUES
 	(#{pointPurchaseNo},#{pointPurchaseUserNo},#{pointPurchaseId},#{pointPurchasePurchasedAt},#{pointPurchaseAmount})
 
-</insert>
+</insert> -->
 
 
 

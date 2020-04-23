@@ -31,13 +31,12 @@
             pg : 'inicis',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : '${point} + " 포인트"',
+            name : '${point} '+ '포인트',
             amount : '${amount}',
-            buyer_email : '${login.user_email}',
-            buyer_name : '${login.user_name}',
-            buyer_tel : '${login.user_tel}',
+            buyer_email : '${login.userEmail}',
+            buyer_name : '${login.userName}',
+            buyer_tel : '${login.userTel}',
             buyer_postcode : '123-123',
-            //m_redirect_url : 'http://www.naver.com'
         }, function(rsp) {
             if ( rsp.success ) {
             	
@@ -49,10 +48,12 @@
                     dataType: 'json',
                     data:   {
                        		imp_uid : rsp.imp_uid,
+                       		user_no : ${login.userNo},
                        		gname : rsp.name,
                        		bname : rsp.buyer_name,
-                       		amount : rsp.paid_amount,
-
+                       		purchased_at : new Date().getTime(),
+                       		amount : rsp.paid_amount
+							
                         	//기타 필요한 데이터가 있으면 추가 전달
 							},success : function(result){
 								

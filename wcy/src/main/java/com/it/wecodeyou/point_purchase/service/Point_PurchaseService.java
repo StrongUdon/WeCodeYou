@@ -35,6 +35,19 @@ public class Point_PurchaseService implements IPoint_PurchaseService{
 		
 	}
 
+	@Override
+	public Point_PurchaseVO getOneRecent(Integer user_no) throws SQLException {
+		// TODO Auto-generated method stub
+		return dao.getOneRecent(user_no);
+	}
+
+	@Override
+	public void addPoint(Point_PurchaseVO pvo) {
+		// TODO Auto-generated method stub
+		dao.addPoint(pvo);
+		
+	}
+
 
 	
 	

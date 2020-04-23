@@ -9,14 +9,14 @@ public class Point_PurchaseVO {
 	private Integer pointPurchaseUserNo;
 	private String pointPurchaseId;
 	private Timestamp pointPurchasePurchasedAt;
-	private String pointPurchaseAmount;
+	private Integer pointPurchaseAmount;
 	
 	
 	
 	public Point_PurchaseVO() {}
 	
 	public Point_PurchaseVO(Integer pointPurchaseNo, Integer pointPurchaseUserNo, String pointPurchaseId,
-			Timestamp pointPurchasePurchasedAt, String pointPurchaseAmount) {
+			Timestamp pointPurchasePurchasedAt, Integer pointPurchaseAmount) {
 		super();
 		this.pointPurchaseNo = pointPurchaseNo;
 		this.pointPurchaseUserNo = pointPurchaseUserNo;
@@ -48,10 +48,10 @@ public class Point_PurchaseVO {
 	public void setPointPurchasePurchasedAt(Timestamp pointPurchasePurchasedAt) {
 		this.pointPurchasePurchasedAt = pointPurchasePurchasedAt;
 	}
-	public String getPointPurchaseAmount() {
+	public Integer getPointPurchaseAmount() {
 		return pointPurchaseAmount;
 	}
-	public void setPointPurchaseAmount(String pointPurchaseAmount) {
+	public void setPointPurchaseAmount(Integer pointPurchaseAmount) {
 		this.pointPurchaseAmount = pointPurchaseAmount;
 	}
 	
