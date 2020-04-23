@@ -1,6 +1,7 @@
 package com.it.wecodeyou.point_purchase.controller;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,7 +34,7 @@ public class Point_PurchaseController {
 		
 		return "pay/paymain";
 	}
-	@PostMapping("/")
+	@GetMapping("/")
 	public String login(Model model, HttpServletRequest request) throws SQLException {
 		
 		
@@ -42,7 +43,7 @@ public class Point_PurchaseController {
 		
 		
 		
-		return "pay/paymain";
+		return "point_purchase/point_purchase-main";
 	}
 	
 	@PostMapping("/gopay")
@@ -50,40 +51,38 @@ public class Point_PurchaseController {
 		
 		
 		int point = Integer.parseInt(request.getParameter("point"));
+		model.addAttribute("point",point);
 		model.addAttribute("amount",point);
 		
 		
 		
 		
-		return "pay/pay";
+		return "point_purchase/inicis";
 	}
 	
 
 	@PostMapping("/paying")
-	public String paying(Model model, HttpServletRequest req) throws SQLException {
+	public void paying(Model model, HttpServletRequest req) throws SQLException {
 		
 		String id = req.getParameter("imp_uid");
-		String gname = req.getParameter("gname");
-		String bname = req.getParameter("bname");
-		Integer amount = Integer.parseInt(req.getParameter("gname"));
+		Integer amount = Integer.parseInt(req.getParameter("amount"));
+		Integer user_no = Integer.parseInt(req.getParameter("user_no"));	
+		Point_PurchaseVO pvo = new Point_PurchaseVO(0,user_no,id,new Timestamp(0),amount);
+
 		
-//		Point_PurchaseVO pvo = 
+		pdao.insertPointPurchase(pvo);
+		pdao.addPoint(pvo);
 		
-//		pdao.insertPointPurchase(pvo);
-		
-		
-		
-		
-		return "pay/paymain";  // ?
+		req.getSession().setAttribute("recent",pdao.getOneRecent(user_no));
+				
 	}
 	
-	@GetMapping("/main")
-	public String paycomplete(Model model) throws SQLException {
+	@GetMapping("/paycomplete")
+	public String paycomplete(Model model, HttpServletRequest req) throws SQLException {
 		
 
 		
-		
-		return "pay/paycomplete";
+		return "point_purchase/result";
 	}
 	
 	@GetMapping("/fail")
