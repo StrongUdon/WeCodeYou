@@ -6,12 +6,14 @@
 	<resultMap id="Interest_ListMap" type="com.it.wecodeyou.interest_list.model.Interest_ListVO">
 		<id property="interestListId" column="interest_list_id" />
 		<result property="interestListType" column="interest_list_type" />
-		<result property="interestListName" column="interest_list_name" />
+		<result property="interestListAnswer" column="interest_list_answer" />
+		<result property="interestListQuestion" column="interest_list_question" />
+		<result property="interestListOption" column="interest_list_option" />
 	</resultMap>
 
 	<!-- 전체 타입 목록 출력  -->
 	<select id="getOneInterestType" resultMap="Interest_ListMap">
-		SELECT DISTINCT interest_list_type FROM interest_list
+		SELECT DISTINCT interest_list_type, interest_list_question, interest_list_option FROM interest_list
 	</select>
 	
 	<!-- 전체 interst_list 정보 출력  -->

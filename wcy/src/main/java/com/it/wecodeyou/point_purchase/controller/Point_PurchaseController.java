@@ -68,6 +68,7 @@ public class Point_PurchaseController {
 		Integer amount = Integer.parseInt(req.getParameter("amount"));
 		Integer user_no = Integer.parseInt(req.getParameter("user_no"));	
 		Point_PurchaseVO pvo = new Point_PurchaseVO(0,user_no,id,new Timestamp(0),amount);
+
 		
 		pdao.insertPointPurchase(pvo);
 		pdao.addPoint(pvo);

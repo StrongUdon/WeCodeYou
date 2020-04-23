@@ -16,7 +16,7 @@ public class Interest_ListService implements IInterest_ListService {
 	private IInterest_ListMapper dao;
 
 	@Override
-	public ArrayList<String> getOneInterestType() throws SQLException {
+	public ArrayList<Interest_ListVO> getOneInterestType() throws SQLException {
 		// TODO Auto-generated method stub
 		return dao.getOneInterestType();
 	}

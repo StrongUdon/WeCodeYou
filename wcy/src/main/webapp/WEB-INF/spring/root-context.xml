@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
-	<!-- DB 관련 설정 -->
-	<!-- JDBC , DB 관련 빈을 등록하고 관리하는 설정파일 -->
-	<!-- 그래서 보통 이름을 바꿔서 쓰는 경우가 일반적임 (예: mvc-config.xml)-->
-	
-	<!-- 1. 히카리 커넥션풀 빈 등록 -->
-<!--    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+   xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+      http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+   
+   <!-- DB 관련 설정 -->
+   <!-- JDBC , DB 관련 빈을 등록하고 관리하는 설정파일 -->
+   <!-- 그래서 보통 이름을 바꿔서 쓰는 경우가 일반적임 (예: mvc-config.xml)-->
+   
+   <!-- 1. 히카리 커넥션풀 빈 등록 -->
+   <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
       <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
       <property name="jdbcUrl" value="jdbc:mysql://database-1.crib18kv3dqa.ap-northeast-2.rds.amazonaws.com:3306/final?serverTimezone=Asia/Seoul" />
       <property name="username" value="admin" />
       <property name="password" value="kaja123!" />
-   </bean> -->
-    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-      <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/final?serverTimezone=Asia/Seoul" />
-      <property name="username" value="root" />
-      <property name="password" value="1234" />
-   </bean>
+   </bean> 
+
 	
 	<!-- 2. 히카리 데이터소스 빈 등록 -->
 	<!-- 위에서 만든 히카리 커넥션풀을 생성자 의존성 주입해줘야함 -->
@@ -69,5 +64,6 @@
 	</bean>
 
 
-	
+
+   
 </beans>
