@@ -17,26 +17,26 @@ public class BoardService implements IBoardService {
 	
 	@Override
 	public void insert(BoardVO rvo) {
-		dao.insert(rvo);
+		dao.insertBoard(rvo);
 
 	}
 
 	@Override
 	public void delete(BoardVO rvo) {
-		dao.delete(rvo);
+		dao.deleteBoard(rvo);
 
 	}
 
 	@Override
 	public void update(BoardVO rvo) {
-		dao.update(rvo);
+		dao.updateBoard(rvo);
 
 	}
 
 	@Override
 	public List<BoardVO> list() {
 	
-		return dao.list();
+		return dao.getAllInfo();
 	}
 
 }

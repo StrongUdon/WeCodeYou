@@ -6,10 +6,10 @@ public class BoardVO {
 	private long boardNo;
 	private String boardTitle;
 	private String boardDetail;
-	private char boardType;
+	private String boardType;
 	private Timestamp boardCreatedAt;
 	
-	public BoardVO(long boardNo, String boardTitle, String boardDetail, char boardType, Timestamp boardCreatedAt) {
+	public BoardVO(long boardNo, String boardTitle, String boardDetail, String boardType, Timestamp boardCreatedAt) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -18,7 +18,7 @@ public class BoardVO {
 		this.boardCreatedAt = boardCreatedAt;
 	}
 
-	public BoardVO(String boardTitle, String boardDetail, char boardType) {
+	public BoardVO(String boardTitle, String boardDetail, String boardType) {
 		super();
 		this.boardTitle = boardTitle;
 		this.boardDetail = boardDetail;
@@ -49,11 +49,11 @@ public class BoardVO {
 		this.boardDetail = boardDetail;
 	}
 
-	public char getBoardType() {
+	public String getBoardType() {
 		return boardType;
 	}
 
-	public void setBoardType(char boardType) {
+	public void setBoardType(String boardType) {
 		this.boardType = boardType;
 	}
 
