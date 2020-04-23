@@ -67,9 +67,9 @@ public class Point_PurchaseController {
 		String bname = req.getParameter("bname");
 		Integer amount = Integer.parseInt(req.getParameter("gname"));
 		
-		Point_PurchaseVO pvo = 
+		Point_PurchaseVO pvo;
 		
-		pdao.insertPointPurchase(pvo);
+//		pdao.insertPointPurchase(pvo);
 		
 		
 		
