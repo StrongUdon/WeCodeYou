@@ -33,6 +33,9 @@
 			  <input type="number" id="seats" name="seats" min="1" max="300" value="1" readonly >
 			</tr>
 			<tr>
+				<input type="text" id="thumb" name="thumb" value="https://res.cloudinary.com/dl5spujr5/image/upload/v1574920339/samples/animals/kitten-playing.gif" readonly/>
+			</tr>
+			<tr>
 				# 상품등록자: 
 				<input type="text" name="productUser" id="user" value="kouri1004@gmail.com" readonly />
 			</tr>
@@ -54,25 +57,26 @@
 	</div>
 <script type="text/javascript">
 	function chkOff(){
-		var offInfo = {
-			'off_author': $('#user').val(),
-			'off_category': $('#type').val(),
-			'off_place': $('#place').val(),
-			'off_': $('#type').val(),
-			'off_seats' : $('#seats').val(),
-			'off_start_at' : $('#start').val(),
-			'off_end_at' : $('#end').val()
+		var productInfo = {
+			"productType" : $("#type").val(),
+			"productName" : $("#name").val(),
+			"productPrice" : $("#price").val(),
+			"productDetail" : $("#detail").val(),
+			"productThumb" : $("#thumb").val()
 		}
 		$.ajax({
 			type: "POST",
-			url : "/off/register",
+			url : "/product/register",
 			headers:{
 				"Content-Type": "application/json"
 			},
 			dataType: "text",
 			data:offInfo,
 			success: function(data){
-				if()
+				console.log("received output");
+				if(data === "product_success"){
+					location.href = "/product"
+				}
 			},
 			error: function(){
 				console.log("POST : /off/register 요청에 실패했습니다.")

@@ -1,8 +1,8 @@
 package com.it.wecodeyou.reply.service;
 
+import com.it.wecodeyou.article.model.ArticleVO;
 import com.it.wecodeyou.member.model.MemberVO;
 import com.it.wecodeyou.reply.model.ReplyVO;
-import com.it.wecodeyou.article.model.ArticleVO;
 
 public interface IReplyService {
 

@@ -14,6 +14,8 @@ public class OffVO {
 	private Timestamp offEndAt;
 	private Timestamp offCreatedAt;
 	private Timestamp offModifiedAt;
+	
+	public OffVO() {}
 	public OffVO(long offNo, long offAuthor, String offCategory, long offProductNo, String offPlace,
 			String offUploadUri, Integer offSeats, Timestamp offStartAt, Timestamp offEndAt, Timestamp offCreatedAt,
 			Timestamp offModifiedAt) {
@@ -36,6 +38,15 @@ public class OffVO {
 		this.offAuthor = offAuthor;
 		this.offCategory = offCategory;
 		this.offProductNo = offProductNo;
+		this.offPlace = offPlace;
+		this.offSeats = offSeats;
+		this.offStartAt = offStartAt;
+		this.offEndAt = offEndAt;
+	}
+	
+	
+	public OffVO(String offPlace, Integer offSeats, Timestamp offStartAt, Timestamp offEndAt) {
+		super();
 		this.offPlace = offPlace;
 		this.offSeats = offSeats;
 		this.offStartAt = offStartAt;

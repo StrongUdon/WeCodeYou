@@ -12,6 +12,7 @@ public class ProductVO {
 	private String productThumb;
 	private String productUser;
 	
+	public ProductVO() {}
 	public ProductVO(long productNo, String productType, String productName, Integer productPrice, String productDetail,
 			Timestamp productCreatedAt, String productThumb, String productUser) {
 		super();
