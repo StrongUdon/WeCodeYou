@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.wecodeyou.product.repository.IProductMapper">
+	
+	<resultMap id="ProductMap" type="com.it.wecodeyou.product.model.ProductVO" >
+		<id property="productNo" column="product_no"/>
+		<result property="productType" column="product_type"/>
+		<result property="productName" column="product_name"/>
+		<result property="productPrice" column="product_price"/>
+		<result property="productDetail" column="product_detail"/>
+		<result property="productCreatedAt" column="product_created_at"/>
+		<result property="productThumb" column="product_thumb"/>
+		<result property="productUser" column="product_user"/>
+	</resultMap>
+	
+	<insert id="insertProduct">
+		INSERT
+		INTO product
+		(product_type, product_name, product_price, product_detail, product_thumb, product_user)
+		VALUES(#{productType}, #{productName}, #{productPrice}, #{productDetail}, #{productThumb}, #{productUser})
+	</insert>
+	
+	<update id="updateProduct">
+	UPDATE product
+	SET product_type = #{productType}, product_name = #{productName},
+	product_detail = #{productDetail}, product_thumb = #{productThumb}
+	where product_no = #{productNo}
+	</update>
+	<delete id="deleteProduct">
+	DELETE
+	FROM product
+	WHERE product_no = #{productNo}
+	</delete>
+	
+	<select id="list" resultMap="ProductMap">
+		SELECT * FROM product
+	</select>
+	
+	<select id="getOneInfo" resultMap="ProductMap">
+		SELECT * FROM product
+		WHERE product_no = #{productNo}
+	</select>
+</mapper>
