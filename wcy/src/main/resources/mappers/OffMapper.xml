@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.wecodeyou.off.repository.IOffMapper">
+
+
+
+	<resultMap id="OffMap" type="com.it.wecodeyou.off.model.OffVO">
+		<id property="offNo" column="off_no"/>
+		<result property="offAuthor" column="off_author"/>
+		<result property="offCategory" column="off_category"/>
+		<result property="offPlace" column="off_place"/>
+		<result property="offProductNo" column="off_product_no"/>
+		<result property="offUploadUri" column="off_upload_uri"/>
+		<result property="offSeats" column="off_seats"/>
+		<result property="offStartAt" column="off_start_at"/>
+		<result property="offEndAt" column="off_end_at"/>
+		<result property="offCreatedAt" column="off_created_at"/>
+		<result property="offModifiedAt" column="off_modified_at"/>	
+	</resultMap>
+	
+	<insert id="insertOff">
+		INSERT 
+		INTO off_course
+		(off_author, off_category, off_place, off_product_no, off_seats, off_start_at, off_end_at)
+		VALUES(#{offAuthor}, #{offCategory}, #{offPlace}, #{offProductNo}, #{offSeats}, #{offStartAt}, #{offEndAt})
+	</insert>
+	
+	<update id="updateOff">
+		UPDATE off_course SET
+		off_category = #{offCategory}, off_place = #{offPlace}, off_seats = #{offSeats}, 
+		off_start_at = #{offStartAt},  off_end_at = #{offEndAt}, off_modified_at = now()
+	</update>
+	
+	<delete id="deleteOff">
+		DELETE FROM off_course WHERE off_no = #{offNO}
+	</delete>
+	
+	<select id="getInfoByAuthor" resultMap="OffMap">
+		SELECT *
+		FROM off_course
+		WHERE off_author = #{offAuthor}
+	</select>
+	<select id="list" resultMap="OffMap">
+		SELECT *
+		FROM off_course	
+	</select>
+</mapper>
