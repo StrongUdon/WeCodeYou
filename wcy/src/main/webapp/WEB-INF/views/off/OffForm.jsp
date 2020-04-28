@@ -14,7 +14,7 @@
 	
 	<div>
 
-		<form action="return chkOff()" method="post">
+		<form action="#" method="post">
 		<table border="2">	
 			<tr>
 				# 상품이름: 
