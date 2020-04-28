@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.wecodeyou.off.repository.ISeatMapper">
+   <!-- 내가 어디에 있는 인터페이스를 가져다가 이 파일을 구현클래스로 쓸건지 full경로를 적어줘야함 -->
+
+   <!-- 한마디로 DB컬럼의 user_no를 읽어서 VO의 userNo set에 매핑하라는 뜻 -->
+   <resultMap id="SeatMap"
+      type="com.it.wecodeyou.off.model.SeatVO">
+      <id property="seatNo" column="seat_no" />
+      <result property="seatOffNo" column="seat_off_no" />
+      <result property="seatUserNo" column="seat_user_no" />
+      <result property="seatIndex" column="seat_index" />
+   </resultMap>
+
+   <!-- 결제 시 자리 정하기 -->
+   <insert id="insertSeat2">
+      INSERT INTO seat (seat_no, seat_off_no, seat_user_no, seat_index)
+      VALUES
+      (#{seatNo},#{seatOffNo},#{seatUserNo},#{seatIndex})
+   </insert>
+
+   <!-- 자리 수정 -->
+   <update id="updateSeat">
+      UPDATE seat SET seat_index=#{seatIndex} WHERE seat_off_no=#{seatOffNo} and
+      seat_user_no=#{seatUserNo}
+   </update>
+
+   <!-- 오프라인 구매 취소 (환불) -->
+   <delete id="deleteSeat">
+      DELETE FROM seat WHERE seat_no=#{seatUserNo}
+   </delete>
+
+   <!-- 해당 강의의 현재 예매 정보 확인 -->
+   <select id="bookedList" resultMap="SeatMap">
+      SELECT * FROM seat WHERE seat_off_no=#{seatOffNo}
+   </select>
+
+   <!-- 해당 강의의 현재 예매 정보 확인 -->
+   <select id="bookedList2" resultMap="SeatMap">
+      SELECT * FROM seat WHERE seat_off_no=#{seatOffNo}
+   </select>
+
+   <!-- 마이페이지 들어가서 내가 해당 과목에 무슨 자리인지 확인하는것 -->
+   <select id="mySeat" resultMap="SeatMap">
+      SELECT * FROM seat WHERE seat_off_no=#{seatOffNo} and
+      seat_user_no=#{seatUserNo}
+   </select>
+
+</mapper>
+

@@ -23,12 +23,12 @@
 	<a href="<c:url value='/member/logout' />" onclick="return confirm('정말로 로그아웃 하시겠습니까?')">LOGOUT</a>
 </c:if>
 
-
 <a href="#">BOARD</a>
 
 <a href="/interest_list">INTEREST</a>
 
 <a href="/tag">TAG SEARCH</a>
 
+<a href="<c:url value='/off/seat_main' />" >자리보기</a>
 </body>
 </html>
