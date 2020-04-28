@@ -26,5 +26,9 @@
 
 <a href="#">BOARD</a>
 
+<a href="/interest_list">INTEREST</a>
+
+<a href="/tag">TAG SEARCH</a>
+
 </body>
 </html>

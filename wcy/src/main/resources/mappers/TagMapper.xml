@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.wecodeyou.tag.repository.ITagMapper">
+
+	<resultMap id="TagMap" type="com.it.wecodeyou.tag.model.TagVO">
+		<id property="tagNo" column="tag_no" />
+		<result property="tagName" column="tag_name" />
+	</resultMap>
+	
+	
+	<!-- tagName 전체 조회 -->
+   	<select id="getAllTag" resultMap="TagMap">
+      	SELECT * FROM tag 
+  	</select>
+  	
+  	<!-- tagName 중복 검사 -->
+   	<select id="checkTag" resultType="int">
+   		<!-- <bind name="pattern" value='%' + _parameter.getTitle() + '%' /> -->
+      	SELECT COUNT(*) FROM tag WHERE tag_name=#{tagName}
+  	</select>
+  	
+   	<select id="checkTagDetail" parameterType="String" resultMap="TagMap">
+  		SELECT * FROM tag
+  		WHERE tag_name LIKE CONCAT('%',#{q},'%')
+	</select>
+	<!-- '%' #{q} '%' -->
+  	
+  	<!-- tag 등록 -->
+  	<insert id="insertTag">
+      	INSERT INTO tag (tag_no,tag_name) VALUES (#{tagNo},#{tagName})
+   </insert>
+   
+	<!-- update / delete 추가 작성 -->
+	
+</mapper>

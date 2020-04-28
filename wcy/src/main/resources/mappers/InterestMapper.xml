@@ -1,3 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mappers.interest.InterestMapper"></mapper>
+<mapper namespace="com.it.wecodeyou.interest.repository.IInterestMapper">
+
+	<resultMap id="InterestMap" type="com.it.wecodeyou.interest.model.InterestVO">
+		<id property="interestNo" column="interest_no" />
+		<result property="interestUserNo" column="interest_user_no" />
+		<result property="interestIndex0" column="interest_index0" />
+		<result property="interestIndex1" column="interest_index1" />
+		<result property="interestIndex2" column="interest_index2" />
+		<result property="interestIndex3" column="interest_index3" />
+		<result property="interestIndex4" column="interest_index4" />
+		<result property="interestIndex5" column="interest_index5" />
+	</resultMap>
+	
+	<!-- insert into interest -->
+	<insert id="insertInterest">
+      INSERT
+      INTO interest
+      (interest_no,interest_user_no,interest_index0,interest_index1,interest_index2,interest_index3,interest_index4,interest_index5)
+      VALUES
+      (#{interestNo},#{interestUserNo},#{interestIndex0},#{interestIndex1},#{interestIndex2},#{interestIndex3},#{interestIndex4},#{interestIndex5})
+   </insert>
+   
+   <!-- 중복체크 -->
+   <select id="checkUserNo" resultType="int">
+      SELECT COUNT(*)
+      FROM interest
+      WHERE interest_user_no=#{interestUserNo}
+   </select>
+
+</mapper>

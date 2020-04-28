@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.wecodeyou.ptag.repository.IPtagMapper">
+
+	<resultMap id="PtagMap" type="com.it.wecodeyou.ptag.model.PtagVO">
+		<id property="pTagNo" column="p_tag_no" />
+		<id property="pProductNo" column="p_product_no" />
+	</resultMap>
+
+</mapper>

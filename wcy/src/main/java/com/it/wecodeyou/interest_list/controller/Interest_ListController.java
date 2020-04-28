@@ -3,52 +3,67 @@ package com.it.wecodeyou.interest_list.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.it.wecodeyou.interest.model.InterestVO;
 import com.it.wecodeyou.interest_list.model.Interest_ListVO;
 import com.it.wecodeyou.interest_list.service.IInterest_ListService;
 
-@Controller
+@RestController
 @RequestMapping("/interest_list")
 public class Interest_ListController {
 
 	@Autowired
 	private IInterest_ListService service;
 
-	/*
-	 * // RestController 에서 viewResolver로 보낼땐 ModelAndView 사용
-	 * 
-	 * @GetMapping("/interest") public ModelAndView interest() { ModelAndView mv =
-	 * new ModelAndView(); mv.setViewName("interest/interest-form"); return mv; }
-	 */
-
-	// interest 설문조사 페이지 열기
 	
-	  @GetMapping("/interest")
-	  public String interest(Model model) throws SQLException { 
-		  //가상의 회원번호 부여(test용) 
-		  int userNo = 123;
+	  // RestController 에서 viewResolver로 보낼땐 ModelAndView 사용
 	  
-		  ArrayList<Interest_ListVO>typeList = service.getOneInterestType();
-		  ArrayList<Interest_ListVO>allInterest = service.getAllInterestList();
+		@GetMapping("")
+		public ModelAndView interest() throws SQLException {
+			ModelAndView mv = new ModelAndView();
+			
+			//가상의 회원번호 부여(test용) 
+			int userNo = 15;
+			 
+			ArrayList<Interest_ListVO>typeList = service.getOneInterestType();
+			ArrayList<Interest_ListVO>allInterest = service.getAllInterestList();
+			  
+			mv.setViewName("interest/interest-form");
+			mv.addObject("typeList", typeList);
+			mv.addObject("allInterest", allInterest);
+			mv.addObject("userNo", userNo);
+			
+			return mv;
+		}
+	 
+
+		/*
+		 * // interest 설문조사 페이지 열기
+		 * 
+		 * @GetMapping("/interest") public String interest(ModelAndView mv, Model model)
+		 * throws SQLException { //가상의 회원번호 부여(test용) int userNo = 15;
+		 * 
+		 * ArrayList<Interest_ListVO>typeList = service.getOneInterestType();
+		 * ArrayList<Interest_ListVO>allInterest = service.getAllInterestList();
+		 * 
+		 * model.addAttribute("typeList",typeList);
+		 * model.addAttribute("allInterest",allInterest); model.addAttribute("userNo",
+		 * userNo); return "interest/interest-form";
+		 * 
+		 * }
+		 */
 	  
-		  model.addAttribute("typeList",typeList); 
-		  model.addAttribute("allInterest",allInterest); 
-		  model.addAttribute("userNo", userNo); 
-		  return "interest/interest-form"; 
-		  
-	  }
-	  
-	  @PostMapping("/insertInterest")
-	  public String insertInterest() throws SQLException {
-		  
-		  System.out.println("insertInterest()");
-		  return "interest/interest-result";
-	  }
 	 
 }
