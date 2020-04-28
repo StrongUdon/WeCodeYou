@@ -12,17 +12,16 @@
 </head>
 <body>
 
-<form action="#" method="post">
    
-   이메일 <input type="email" id="userEmail" name="userEmail" value ="${kakaoemail}"/><span id="emailChk"></span><br>
+   이메일 <input type="email" id="userEmail" name="userEmail" value="${user_email}" readonly="readonly"/><span id="emailChk"></span><br>
    
    비밀번호 <input type="password" id="userPw" name="userPw" /><span id="pwChk1"></span><br>
    <span id="pwChk"> </span><br>
    비밀번호 확인 <input type="password" id="userPwChk" name="userPwChk" /><span id="pwChk2"></span><br>
    <span id="pwChk2"> </span><br>
-   이름 <input type="text" id="userName" name="userName" value = "${kakaonickname}"/><span id="nameChk"></span><br>
+   이름 <input type="text" id="userName" name="userName" /><span id="nameChk"></span><br>
    전화번호 <input type="text" id="userTel" name="userTel" placeholder="-을 제외한 11자리 번호 입력"/><span id="telChk"></span><br>
-   생일 <input type="date" id="userBirthday" name="userBirthday" value = "${kakaobirth}"/> <br>
+   생일 <input type="date" id="userBirthday" name="userBirthday" /> <br>
    주소
    <input type="text" name="userZipcode" id="userZipCode" placeholder="우편번호 검색하기" readonly="readonly" onclick="openDaumPostcode('userZipCode','userFirstAddr','userSecondAddr'); return false;" />
    <input type="text" name="userAddress" id="userFirstAddr" readonly="readonly">
@@ -36,153 +35,106 @@
    
    <input type="button" id="signup-btn" value="회원가입" />
 
-</form>
-
 
 <script type="text/javascript">
 
 
-	//start JQuery (회원가입)
-	const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
-	const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-	let chk1 = false, chk2 = false, chk3 = false, chk4 = false, chk5 = false;
+   //start JQuery (회원가입)
+   const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
+   const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+   let chk1 = true, chk2 = false, chk3 = false, chk4 = false, chk5 = false;
 
-	// 1. 회원가입 입력 값 검증 ======================================================================================
-	
-	// 1) 이메일 중복확인 keyup 이벤트
-	$("#userEmail").keyup(function(){
-		
-		// 이메일 공백 체크
-		if($(this).val()===""){
-			$(this).css("background-color","pink");
-			$("#emailChk").html("<b style='font-size:14px; color:red;'> 이메일은 필수 정보입니다. </b>");
-			chk1 = false;
-		}
-		// 이메일 유효성 검증 (형식에 맞는지 검사)
-		else if(!getMail.test($("#userEmail").val())){
-			$(this).css("background-color","pink");
-			$("#emailChk").html("<b style='font-size:14px; color:red;'> 이메일 형식이 잘못 되었습니다. </b>");
-			chk1 = false;
-		}
-		// 이메일 제대로 썼을 때: 중복확인 비동기 통신
-		else{
-			const email=$(this).val();
-			console.log(email);
-			
-			$.ajax({
-				type:"POST",
-				url:"/member/checkEmail",
-				headers:{
-					"Content-Type":"application/json"
-				},
-				dataType:"text",
-				data:email,
-				success:function(result){
-					if(result==="OK"){
-						$("#userEmail").css("background-color","aqua");
-						$("#emailChk").html("<b style='font-size:14px; color:green;'> 사용가능한 이메일입니다. </b>");
-						chk1=true;
-					} else{
-						$(this).css("background-color","pink");
-						$("#emailChk").html("<b style='font-size:14px; color:red;'> 이미 가입된 이메일입니다. </b>");
-						chk1 = false;
-					}
-				},
-				error:function(){
-					console.log("서버와 통신 실패");
-				}
-			});
-		}	
-	}); // end - 이메일 중복확인 keyup 이벤트
+   // 1. 회원가입 입력 값 검증 ======================================================================================
+   
+  
+   
+   // 2) 비밀번호 입력값 keyup 이벤트
+   $('#userPw').on('keyup', function() {
+         
+         // 비밀번호 공백 체크
+         if($("#userPw").val() === ""){
+             $('#userPw').css("background-color", "pink");
+            $('#pwChk1').html('<b style="font-size:14px;color:red;">비밀번호는 필수 정보 입니다.</b>');
+            chk2 = false;
+         }               
+         // 비밀번호 유효성 검증 (특수문자 포함 8자 이상인지 검사)
+         else if(!getPwCheck.test($("#userPw").val()) || $("#userPw").val().length < 8){
+             $('#userPw').css("background-color", "pink");
+            $('#pwChk1').html('<b style="font-size:14px;color:red;">특수문자 포함 8자 이상으로 입력해주세요.</b>');
+            chk2 = false;
+         } 
+         // 비밀번호 제대로 썼을 때
+         else {
+            $('#userPw').css("background-color", "aqua");
+            $('#pwChk1').html('<b style="font-size:14px;color:green;">사용 가능한 비밀번호입니다.</b>');
+            chk2 = true;
+         }      
+   }); //end - 비밀번호 입력값 keyup 이벤트
+   
+   // 3) 비밀번호 확인 입력값 keyup 이벤트
+   $('#userPwChk').on('keyup', function() {
+         
+         // 비밀번호 확인란 공백 체크
+         if($("#userPwChk").val() === ""){
+             $('#userPwChk').css("background-color", "pink");
+            $('#pwChk2').html('<b style="font-size:14px;color:red;">비밀번호 확인을 입력해주세요.</b>');
+            chk3 = false;
+         }               
+         // 비밀번호 확인 검증 (비밀번호와 같은지 검사)
+         else if($("#userPw").val() != $("#userPwChk").val()){
+             $('#userPwChk').css("background-color", "pink");
+            $('#pwChk2').html('<b style="font-size:14px;color:red;">비밀번호와 동일하게 입력해주세요.</b>');
+            chk3 = false;
+         } 
+         // 비밀번호 확인 제대로 썼을 떄
+         else {
+            $('#userPwChk').css("background-color", "aqua");
+            $('#pwChk2').html('');
+            chk3 = true;
+         }
+   }); // end - 비밀번호 확인 입력값 keyup 이벤트
 
-	
-	// 2) 비밀번호 입력값 keyup 이벤트
-	$('#userPw').on('keyup', function() {
-			
-			// 비밀번호 공백 체크
-			if($("#userPw").val() === ""){
-			    $('#userPw').css("background-color", "pink");
-				$('#pwChk1').html('<b style="font-size:14px;color:red;">비밀번호는 필수 정보 입니다.</b>');
-				chk2 = false;
-			}		         
-			// 비밀번호 유효성 검증 (특수문자 포함 8자 이상인지 검사)
-			else if(!getPwCheck.test($("#userPw").val()) || $("#userPw").val().length < 8){
-			    $('#userPw').css("background-color", "pink");
-				$('#pwChk1').html('<b style="font-size:14px;color:red;">특수문자 포함 8자 이상으로 입력해주세요.</b>');
-				chk2 = false;
-			} 
-			// 비밀번호 제대로 썼을 때
-			else {
-				$('#userPw').css("background-color", "aqua");
-				$('#pwChk1').html('<b style="font-size:14px;color:green;">사용 가능한 비밀번호입니다.</b>');
-				chk2 = true;
-			}		
-	}); //end - 비밀번호 입력값 keyup 이벤트
-	
-	// 3) 비밀번호 확인 입력값 keyup 이벤트
-	$('#userPwChk').on('keyup', function() {
-			
-			// 비밀번호 확인란 공백 체크
-			if($("#userPwChk").val() === ""){
-			    $('#userPwChk').css("background-color", "pink");
-				$('#pwChk2').html('<b style="font-size:14px;color:red;">비밀번호 확인을 입력해주세요.</b>');
-				chk3 = false;
-			}		         
-			// 비밀번호 확인 검증 (비밀번호와 같은지 검사)
-			else if($("#userPw").val() != $("#userPwChk").val()){
-			    $('#userPwChk').css("background-color", "pink");
-				$('#pwChk2').html('<b style="font-size:14px;color:red;">비밀번호와 동일하게 입력해주세요.</b>');
-				chk3 = false;
-			} 
-			// 비밀번호 확인 제대로 썼을 떄
-			else {
-				$('#userPwChk').css("background-color", "aqua");
-				$('#pwChk2').html('');
-				chk3 = true;
-			}
-	}); // end - 비밀번호 확인 입력값 keyup 이벤트
-
-	// 4) 이름 입력값 keyup 이벤트
-	$('#userName').on('keyup', function() {
-			
-			// 이름 공백 체크
-			if($("#userName").val() === ""){
-			    $('#userName').css("background-color", "pink");
-				$('#nameChk').html('<b style="font-size:14px;color:red;"> 이름은 필수 정보 입니다.</b>');
-				chk4 = false;
-			}		         
-			// 이름을 썼을 때
-			else {
-				$('#userName').css("background-color", "aqua");
-				$('#nameChk').html('');
-				chk4 = true;
-			}
-	}); // end - 이름 입력값 keyup 이벤트
-	
-	// 5) 전화번호 입력값 keyup 이벤트 
-	$('#userTel').on('focusout',function(){	
-			var trans_tel = $(this).val().replace(/-/gi,'');
+   // 4) 이름 입력값 keyup 이벤트
+   $('#userName').on('keyup', function() {
+         
+         // 이름 공백 체크
+         if($("#userName").val() === ""){
+             $('#userName').css("background-color", "pink");
+            $('#nameChk').html('<b style="font-size:14px;color:red;"> 이름은 필수 정보 입니다.</b>');
+            chk4 = false;
+         }               
+         // 이름을 썼을 때
+         else {
+            $('#userName').css("background-color", "aqua");
+            $('#nameChk').html('');
+            chk4 = true;
+         }
+   }); // end - 이름 입력값 keyup 이벤트
+   
+   // 5) 전화번호 입력값 keyup 이벤트 
+   $('#userTel').on('focusout',function(){   
+         var trans_tel = $(this).val().replace(/-/gi,'');
             var getTelChk = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
-			
-			// 전화번호 공백 체크
+         
+         // 전화번호 공백 체크
             if($("#userTel").val() === ""){
-			    $('#userTel').css("background-color", "pink");
-				$('#telChk').html('<b style="font-size:14px;color:red;">전화번호를 입력해주세요.</b>');
-				chk5 = false;
-			}
-			// 전화번호 입력값 길이가 11자리가 아닐때
+             $('#userTel').css("background-color", "pink");
+            $('#telChk').html('<b style="font-size:14px;color:red;">전화번호를 입력해주세요.</b>');
+            chk5 = false;
+         }
+         // 전화번호 입력값 길이가 11자리가 아닐때
             else if($("#userTel").val().length != 11){
-	           	$("#userTel").css("background-color", "pink");
-	            $("#telChk").html('<b style="font-size:14px;color:red;">\'-\'을 제외한 11자리 번호를 입력해주세요.</b>');
-	            chk5 = false;
+                 $("#userTel").css("background-color", "pink");
+               $("#telChk").html('<b style="font-size:14px;color:red;">\'-\'을 제외한 11자리 번호를 입력해주세요.</b>');
+               chk5 = false;
             }
-			// 전화번호 입력값이 11자리 일때
+         // 전화번호 입력값이 11자리 일때
             else if($("#userTel").val().length == 11){
                // 전화번호 입력 형식에 맞지 않을 때
                if(!getTelChk.test($("#userTel").val())){
-            	   $("#userTel").css("background-color", "pink");
-            	   $("#telChk").html('<b style="font-size:14px;color:red;">숫자만 입력해주세요.</b>');
-            	   chk5 = false;
+                  $("#userTel").css("background-color", "pink");
+                  $("#telChk").html('<b style="font-size:14px;color:red;">숫자만 입력해주세요.</b>');
+                  chk5 = false;
                }
                // 전화번호 맞게 입력했을 때: 중복확인 비동기 통신
                else{ 
@@ -192,112 +144,112 @@
                   console.log(userTel);
                   
                   $.ajax({
-	                  type: "POST",
-	                  url : "/member/checkTel",   
-	                  headers:{
-							"Content-Type": "application/json"
-					  },
-					  dataType: "text",
-					  data: userTel,
-	                  success: function(result){ 
-	
-						if(result === 'OK'){
-							$('#telChk').html('<b style="font-size:14px;color:green;">가입 가능한 번호 입니다.</b>');
-							$("#userTel").css("background-color", "aqua");
-							chk5 = true;   
-	                    } else {
-							$("#telChk").html("<b style='font-size:14px; color:red;'> 이미 가입된 전화번호입니다. </b>");
-							$("#userTel").css("background-color","pink");
-							chk5 = false;
-	                      }                        
-	                   }, 
-	                   error: function(){      
-	                         console.log("서버 통신 실패");                   
-	                   } 
+                     type: "POST",
+                     url : "/member/checkTel",   
+                     headers:{
+                     "Content-Type": "application/json"
+                 },
+                 dataType: "text",
+                 data: userTel,
+                     success: function(result){ 
+   
+                  if(result === 'OK'){
+                     $('#telChk').html('<b style="font-size:14px;color:green;">가입 가능한 번호 입니다.</b>');
+                     $("#userTel").css("background-color", "aqua");
+                     chk5 = true;   
+                       } else {
+                     $("#telChk").html("<b style='font-size:14px; color:red;'> 이미 가입된 전화번호입니다. </b>");
+                     $("#userTel").css("background-color","pink");
+                     chk5 = false;
+                         }                        
+                      }, 
+                      error: function(){      
+                            console.log("서버 통신 실패");                   
+                      } 
                  
                    });
                 } // end - 전화번호 맞게 입력했을 때: 중복확인 비동기 통신  
              } // end - 전화번호 입력값이 11자리 일때
-	}); // end - 전화번호 입력값 keyup 이벤트 
-	
-	// 2. 회원가입 버튼 클릭 이벤트 ======================================================================================
-	$("#signup-btn").click(function(){
-			
-		// 위의 검증을 모두 통과한 경우!!!!!!!!!!!!!!!!!!!!!!!!
-		if(chk1 && chk2 && chk3 && chk4 && chk5) { 
-			//이메일 정보
-			const email = $("#userEmail").val();
-			console.log("email: "+email);
-				
-			//패스워드 정보
-			const pw = $("#userPw").val();
-			console.log("pw: "+pw);
-				
-			//이름 정보
-			const name = $("#userName").val();
-			console.log("name: "+name);
-			
-			//전화번호
-			const tel = $("#userTel").val();
-			console.log("tel: "+tel);
-			
-			//생일
-			//const birthday = $("userBirthday").val();
-			//console.log("birthday: "+birthday);
-	        var birthday= document.querySelector('input[type="date"]');
-	        console.log(birthday.value);
-	        
-			//주소
-			const zip = $("#userZipCode").val();
-			const addr = $("#userFirstAddr").val();
-			const detail = $("#userSecondAddr").val();
-			console.log("zip: "+zip+", addr: "+addr+", detail: "+detail);
-			
-			//자바스크립트 형태의 객체 생성 (키:값) => 키는 VO의 필드명과 맞춘다
-			const mvo={
-				userEmail:email,
-				userPw:pw,
-				userName:name,
-				userTel:tel,
-				userBirthday:birthday,
-				userZipcode:zip,
-				userAddress:addr,
-				userDetailAddress:detail
-			};
-			
-			
-			//클라이언트에서 서버와 통신하는 ajax 함수 (비동기 통신: 페이지는 그대로 있고(화면이 고정된 상태에서) 통신하는 것 = 화면이 새로고침 되지 않음 )
-			//$.ajax({"key":"value"}); 의 형태로 작성하는데, 가로로 작성하면 가독성이 떨어지기 때문에 세로로 작성!
-			$.ajax({
-				type: "POST",				//서버에 전송하는 HTTP 요청 방식 (POST, GET, PUT, DELETE)
-				url: "/member/",				//url이라고 키를 적고 서버에 요청할 uri만 작성해도됨
-				headers: {					//요청 헤더 정보 (데이터 타입 등)
-					"Content-Type":"application/json"
-				},
-				dataType: "text",			//응답받을 데이터의 형태 (text , xml, html, json) ==> 지금 text인 이유는 컨트롤러에서 return 값이 문자열(string)이기 때문에 text로!
-				data: JSON.stringify(mvo),	//서버로 전송할 데이터  ,  JSON.stringify(user) ==> user라는 자바스크립트 객체를 JSON으로 바꿔서 서버로 보내라.
-				success: function(result){	//통신 성공시 처리할 내용들을 함수 내부에 작성 , 함수의 매개변수는 통신 성공시에 서버가 가져다 줄 데이터가 저장될 곳!
-						
-					console.log("통신 성공!: "+result);
-					if(result === "joinSuccess"){
-						alert("회원가입 성공!");
-						location.href="/";
-					}else{
-						alert("회원가입 실패!");						
-					}
-					
-				},
-				error: function(){			//통신 실패시 처리할 내용들을 함수 내부에 작성
-					console.log("통신 실패!");
-				}
-			});
-		}
-		// 위의 검증 중에서 하나라도 통과하지 못한 경우!!!!
-		else{
-			alert("입력하신 정보를 다시 확인해주세요.");
-		}
-		
-	}); //end - 회원가입 버튼 클릭 이벤트
+   }); // end - 전화번호 입력값 keyup 이벤트 
+   
+   // 2. 회원가입 버튼 클릭 이벤트 ======================================================================================
+   $("#signup-btn").click(function(){
+         
+      // 위의 검증을 모두 통과한 경우!!!!!!!!!!!!!!!!!!!!!!!!
+      if(chk1 && chk2 && chk3 && chk4 && chk5) { 
+         //이메일 정보
+         const email = $("#userEmail").val();
+         console.log("email: "+email);
+            
+         //패스워드 정보
+         const pw = $("#userPw").val();
+         console.log("pw: "+pw);
+            
+         //이름 정보
+         const name = $("#userName").val();
+         console.log("name: "+name);
+         
+         //전화번호
+         const tel = $("#userTel").val();
+         console.log("tel: "+tel);
+         
+         //생일
+         //const birthday = $("userBirthday").val();
+         //console.log("birthday: "+birthday);
+           var birthday= document.getElementById('userBirthday');
+           console.log(birthday.value);
+           
+         //주소
+         const zip = $("#userZipCode").val();
+         const addr = $("#userFirstAddr").val();
+         const detail = $("#userSecondAddr").val();
+         console.log("zip: "+zip+", addr: "+addr+", detail: "+detail);
+         
+         //자바스크립트 형태의 객체 생성 (키:값) => 키는 VO의 필드명과 맞춘다
+         const mvo={
+            userEmail:email,
+            userPw:pw,
+            userName:name,
+            userTel:tel,
+            userBirthday:birthday.value,
+            userZipcode:zip,
+            userAddress:addr,
+            userDetailAddress:detail
+         };
+         
+         
+         //클라이언트에서 서버와 통신하는 ajax 함수 (비동기 통신: 페이지는 그대로 있고(화면이 고정된 상태에서) 통신하는 것 = 화면이 새로고침 되지 않음 )
+         //$.ajax({"key":"value"}); 의 형태로 작성하는데, 가로로 작성하면 가독성이 떨어지기 때문에 세로로 작성!
+         $.ajax({
+            type: "POST",            //서버에 전송하는 HTTP 요청 방식 (POST, GET, PUT, DELETE)
+            url: "/member/",            //url이라고 키를 적고 서버에 요청할 uri만 작성해도됨
+            headers: {               //요청 헤더 정보 (데이터 타입 등)
+               "Content-Type":"application/json"
+            },
+            dataType: "text",         //응답받을 데이터의 형태 (text , xml, html, json) ==> 지금 text인 이유는 컨트롤러에서 return 값이 문자열(string)이기 때문에 text로!
+            data: JSON.stringify(mvo),   //서버로 전송할 데이터  ,  JSON.stringify(user) ==> user라는 자바스크립트 객체를 JSON으로 바꿔서 서버로 보내라.
+            success: function(result){   //통신 성공시 처리할 내용들을 함수 내부에 작성 , 함수의 매개변수는 통신 성공시에 서버가 가져다 줄 데이터가 저장될 곳!
+                  
+               console.log("통신 성공!: "+result);
+               if(result === "joinSuccess"){
+                  alert("회원가입 성공!");
+                  location.href="/";
+               }else{
+                  alert("회원가입 실패!");                  
+               }
+               
+            },
+            error: function(){         //통신 실패시 처리할 내용들을 함수 내부에 작성
+               console.log("통신 실패!");
+            }
+         });
+      }
+      // 위의 검증 중에서 하나라도 통과하지 못한 경우!!!!
+      else{
+         alert("입력하신 정보를 다시 확인해주세요.");
+      }
+      
+   }); //end - 회원가입 버튼 클릭 이벤트
 
 </script>
 

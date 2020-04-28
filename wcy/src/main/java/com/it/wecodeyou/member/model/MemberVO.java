@@ -4,12 +4,15 @@ package com.it.wecodeyou.member.model;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class MemberVO {
 
    private Integer userNo;
    private String userEmail;
    private String userPw;
    private String userName;
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
    private Date userBirthday;
    private String userTel;
    private String userProfileImg;

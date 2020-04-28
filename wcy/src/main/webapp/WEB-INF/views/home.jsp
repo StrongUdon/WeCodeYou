@@ -19,7 +19,7 @@
 </c:if>
 
 <c:if test="${login != null}">
-	<a href="#" >MYPAGE</a>
+	<a href="<c:url value='/mypage/' />" >MYPAGE</a>
 	<a href="<c:url value='/member/logout' />" onclick="return confirm('정말로 로그아웃 하시겠습니까?')">LOGOUT</a>
 </c:if>
 

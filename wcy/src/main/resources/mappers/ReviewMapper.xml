@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.wecodeyou.review.repository.IReviewMapper">
+
+	<!-- DB칼럼명과 VO필드명 매핑 -->
+	<resultMap type="com.it.wecodeyou.review.model.ReviewVO" id="ReviewMap">
+		<id property="reviewNo" column="review_no"/>
+		<result property="reviewUser" column="review_user" />
+		<result property="reviewProductNo" column="review_product_no" />
+		<result property="reviewStar" column="review_star"/>
+		<result property="content" column="content"/>
+		<result property="reviewCreatedAt" column="review_created_at" />
+	</resultMap>
+
+	<!-- 작성 insert-->
+	<insert id="insertReview">
+		INSERT
+		INTO review
+		(review_no, review_user, review_product_no, review_star, content, review_created_at)
+		VALUES
+		(#{reviewNo}, #{reviewUser}, #{reviewProductNo}, #{reviewStar}, #{content}, #{reviewCreatedAt})
+	</insert>
+
+	<!-- 개별 출력(상세조회) -->
+	<select id="getOneReview" resultMap="ReviewMap">
+		SELECT * FROM review WHERE review_no=#{reviewNo}
+	</select>
+	
+	<!-- 리스트 출력 (강의별로) => 각 강의의 상세페이지 하단에서 출력 -->
+	<select id="getAllReviewByLec" resultMap="ReviewMap">
+		
+	</select>
+	
+	<!-- 리스트 출력 (사용자별로) => 마이페이지에서 확인 가능 -->
+	<select id="getAllReviewByUser">
+	
+	</select>
+	
+	
+	<!-- 삭제(관리자 권한) -->
+	<delete id="deleteReview">
+		DELETE FROM review WHERE review_no=#{reviewNo}
+	</delete>
+	
+
+</mapper>
